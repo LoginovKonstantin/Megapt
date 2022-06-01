@@ -1,13 +1,16 @@
 ## Installation
 
 ```bash
-$ git clone ... && cd megapt && npm install
+$ git clone https://github.com/LoginovKonstantin/Megapt.git && cd megapt
 ```
 
 ## Running the app (locally)
 Then you must have Postrges server (local), and show .env file
 
 ```bash
+# install dependencies 
+$ npm install
+
 # build
 $ npm run build
 
