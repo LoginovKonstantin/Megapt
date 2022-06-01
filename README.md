@@ -25,7 +25,6 @@ $ npm run start:prod
 ```
 
 ## Running the app (docker-compose)
-Then you must have Postrges server (local), and show .env file
 
 ```bash
 $ docker-compose up -d
