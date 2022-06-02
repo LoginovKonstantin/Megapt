@@ -1,7 +1,7 @@
 ## Installation
 
 ```bash
-$ git clone https://github.com/LoginovKonstantin/Megapt.git && cd Megapt && npm i
+$ git clone https://github.com/LoginovKonstantin/Megapt.git && cd Megapt
 ```
 
 ## Running the app (locally)
