@@ -1,32 +1,13 @@
-FROM node:12.13-alpine As development
-
-WORKDIR /usr/src/app
-
-COPY package*.json ./
-
-RUN npm install --only=development
-
+FROM node:16-alpine AS builder
+WORKDIR "/app"
 COPY . .
-
-CMD npm run build && \
-    knex migrate:latest && \
-    npm run start
-
-FROM node:12.13-alpine as production
-
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
-
-WORKDIR /usr/src/app
-
-COPY package*.json ./
-
-RUN npm install --only=production
-
-COPY . .
-
-COPY --from=development /usr/src/app/dist ./dist
-
-CMD npm run build && \
-    knex migrate:latest && \
-    npm run start:prod
+RUN npm ci
+RUN npm run build
+RUN npm prune --production
+FROM node:16-alpine AS production
+WORKDIR "/app"
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/package-lock.json ./package-lock.json
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+CMD knex migrate:latest && npm run start:prod

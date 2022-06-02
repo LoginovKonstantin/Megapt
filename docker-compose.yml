@@ -4,10 +4,7 @@ services:
     container_name: megapt
     build:
       context: .
-      target: production
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
+      dockerfile: 'Dockerfile'
     ports:
       - 3000:3000
     command: npm run start:prod
