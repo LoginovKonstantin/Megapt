@@ -8,6 +8,8 @@ FROM node:16-alpine AS production
 WORKDIR "/app"
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/package-lock.json ./package-lock.json
+COPY --from=builder /app/src ./src
 COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/knexfile.js ./knexfile.js
 COPY --from=builder /app/node_modules ./node_modules
-CMD knex migrate:latest && npm run start:prod
+CMD npm run migration && npm run start:prod
