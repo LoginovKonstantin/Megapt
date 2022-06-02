@@ -1,3 +1,4 @@
+import * as luxon from 'luxon';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 
@@ -84,7 +85,7 @@ export class GroupsService {
 
     if (currentGroup.changed()) {
       this.logger.log(`Group <${id}> has changed`);
-
+      currentGroup.set('updatedAt', luxon.DateTime.now());
       await currentGroup.save();
       await currentGroup.reload();
     }

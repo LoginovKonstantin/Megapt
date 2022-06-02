@@ -1,3 +1,4 @@
+import * as luxon from 'luxon';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { ProductModel } from './product.model';
@@ -78,7 +79,7 @@ export class ProductsService {
 
     if (product.changed()) {
       this.logger.log(`Product <${id}> has changed`);
-
+      product.set('updatedAt', luxon.DateTime.now());
       await product.save();
       await product.reload();
     }
